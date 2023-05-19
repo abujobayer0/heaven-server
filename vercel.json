@@ -7,10 +7,21 @@
       }
     ],
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "server.js"
-      }
+      { "src": "/gallery", "dest": "index.js" },
+      { "src": "/animal-toys", "dest": "index.js" },
+      { "src": "/art-and-craft-toys", "dest": "index.js" },
+      { "src": "/police-car-toys", "dest": "index.js" },
+      { "src": "/retailers", "dest": "index.js" },
+      { "src": "/online-partners", "dest": "index.js" },
+      { "src": "/featured-products", "dest": "index.js" },
+      { "src": "/tranding-products", "dest": "index.js" },
+      { "src": "/alltoys", "dest": "index.js" },
+      { "src": "/toy/:id", "dest": "index.js" },
+      { "src": "/user", "dest": "index.js" },
+      { "src": "/add", "dest": "index.js" },
+      { "src": "/update/:id", "dest": "index.js" },
+      { "src": "/delete/:id", "dest": "index.js" },
+      { "src": "/(.*)", "dest": "index.js" }
     ]
   }
   
