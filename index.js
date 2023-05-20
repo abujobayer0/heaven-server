@@ -79,6 +79,14 @@ async function run() {
         console.log(err);
       }
     });
+    app.get("/search", async (req, res) => {
+      const name = req.query.name;
+      console.log(name);
+      const result = await allToysCollection
+        .find({ name: { $regex: name, $options: "i" } })
+        .toArray();
+      res.send(result);
+    });
     app.get("/user", async (req, res) => {
       const { email } = req.query;
       const result = await allToysCollection.find({ email: email }).toArray();
