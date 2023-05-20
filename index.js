@@ -46,19 +46,11 @@ async function run() {
       const result = await galleryCollection.find().toArray();
       res.send(result);
     });
-    app.get("/teddy-bear", async (req, res) => {
-      const query = { subCategory: "Teddy Bear" };
-      const result = await allToysCollection.find(query).toArray();
+    app.get("/all", async (req, res) => {
+      const result = await allToysCollection.find().toArray();
       res.send(result);
     });
-    app.get("/art-and-craft-toys", async (req, res) => {
-      const result = await artAndCraftToysCollection.find().toArray();
-      res.send(result);
-    });
-    app.get("/police-car-toys", async (req, res) => {
-      const result = await policeCarToyCollection.find().toArray();
-      res.send(result);
-    });
+
     app.get("/retailers", async (req, res) => {
       const result = await retailersCollection.find().toArray();
       res.send(result);
