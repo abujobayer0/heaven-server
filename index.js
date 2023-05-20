@@ -47,7 +47,11 @@ async function run() {
       const result = await onlinePartnersCollection.find().toArray();
       res.send(result);
     });
-
+    const blogCollection = client.db("heaven").collection("blog");
+    app.get("/blog", async (req, res) => {
+      const result = await blogCollection.find().toArray();
+      res.send(result);
+    });
     app.get("/alltoys", async (req, res) => {
       const limit = parseInt(req.query.limit) || 20;
 
