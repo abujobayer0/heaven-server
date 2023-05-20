@@ -88,9 +88,31 @@ async function run() {
       res.send(result);
     });
     app.get("/user", async (req, res) => {
-      const { email } = req.query;
-      const result = await allToysCollection.find({ email: email }).toArray();
-      res.send(result);
+      const { email, page } = req.query;
+      const pageNumber = parseInt(page) || 1;
+      const pageSize = 10;
+      const skipCount = (pageNumber - 1) * pageSize;
+
+      try {
+        const result = await allToysCollection
+          .find({ email: email })
+          .skip(skipCount)
+          .limit(pageSize)
+          .toArray();
+
+        const totalCount = await allToysCollection
+          .find({
+            email: email,
+          })
+          .toArray();
+
+        const totalPages = Math.ceil(totalCount.length / pageSize);
+
+        res.send({ result, totalPages });
+      } catch (err) {
+        console.log(err);
+        res.status(500).send("Error fetching user toys");
+      }
     });
 
     //  all post apis
