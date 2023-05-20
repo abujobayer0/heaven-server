@@ -46,8 +46,9 @@ async function run() {
       const result = await galleryCollection.find().toArray();
       res.send(result);
     });
-    app.get("/animal-toys", async (req, res) => {
-      const result = await animalToysCollection.find().toArray();
+    app.get("/teddy-bear", async (req, res) => {
+      const query = { subCategory: "Teddy Bear" };
+      const result = await allToysCollection.find(query).toArray();
       res.send(result);
     });
     app.get("/art-and-craft-toys", async (req, res) => {
