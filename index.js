@@ -21,24 +21,12 @@ async function run() {
     await client.connect();
     // all collections
     const galleryCollection = client.db("heaven").collection("gallery");
-    const animalToysCollection = client.db("heaven").collection("animal-toys");
-    const artAndCraftToysCollection = client
-      .db("heaven")
-      .collection("art-and-craft-toys");
-    const policeCarToyCollection = client
-      .db("heaven")
-      .collection("police-car-toys");
+
     const retailersCollection = client.db("heaven").collection("retailers");
     const onlinePartnersCollection = client
       .db("heaven")
       .collection("onlinePartners");
-    const featuredProductsCollection = client
-      .db("heaven")
-      .collection("featured-products");
 
-    const trandingProductsCollection = client
-      .db("heaven")
-      .collection("tranding-products");
     //   all get operations
     const allToysCollection = client.db("heaven").collection("all-toys");
 
@@ -59,14 +47,7 @@ async function run() {
       const result = await onlinePartnersCollection.find().toArray();
       res.send(result);
     });
-    app.get("/featured-products", async (req, res) => {
-      const result = await featuredProductsCollection.find().toArray();
-      res.send(result);
-    });
-    app.get("/tranding-products", async (req, res) => {
-      const result = await trandingProductsCollection.find().toArray();
-      res.send(result);
-    });
+
     app.get("/alltoys", async (req, res) => {
       const limit = parseInt(req.query.limit) || 20;
 
@@ -83,6 +64,20 @@ async function run() {
       const data = await allToysCollection.findOne({ _id: new ObjectId(id) });
       console.log(id);
       res.send(data);
+    });
+    app.get("/toys/", async (req, res) => {
+      const sort = req.query.sort;
+      const email = req.query.email;
+      const query = { email: email };
+      try {
+        const sortedToys = await allToysCollection
+          .find(query)
+          .sort({ price: sort === "descending" ? -1 : 1 })
+          .toArray();
+        res.send(sortedToys);
+      } catch (err) {
+        console.log(err);
+      }
     });
     app.get("/user", async (req, res) => {
       const { email } = req.query;
